@@ -1,10 +1,24 @@
-#¾É¤J®M¥ó
+# 108-å¤ å°ˆé¡Œ:é«˜é›„ç™¼å¤§è²¡  
+> é„§ç¾½å½¤	è”¡ä½©èŠ¸	è”¡çƒœå»·  
+
+## ç›®éŒ„  
+
+[å‰ç½®ä½œæ¥­](#1)   
+[æ¸…æ´—è³‡æ–™](#2)  
+[è³‡æ–™è¦–è¦ºåŒ–](#3)  
+
+<h2 id=1></h2>  
+## å‰ç½®ä½œæ¥­
+### å°å…¥å¥—ä»¶  
+```{r results ='hide',message =FALSE,warning=FALSE}
 library(tidyverse)
 library(dplyr)
 library(ggplot2)
 library(lubridate)
+```
 
-#¾É¤JÀÉ®×
+### å°å…¥æª”æ¡ˆ  
+```{r results ='hide',message =FALSE,warning=FALSE}
 Tr18<-read.csv("C:/users/chris/Documents/GitHub/Final-Topic__RICH/Train2018.csv")
 Tr19<-read.csv("C:/users/chris/Documents/GitHub/Final-Topic__RICH/Train2019.csv")
 
@@ -41,11 +55,14 @@ H18_12_2<-read.csv("C:/users/chris/Documents/GitHub/Final-Topic__RICH/hotel/file
 H19_1_2<-read.csv("C:/users/chris/Documents/GitHub/Final-Topic__RICH/hotel/file/10801-2.csv")
 H19_2_2<-read.csv("C:/users/chris/Documents/GitHub/Final-Topic__RICH/hotel/file/10802-2.csv")
 H19_3_2<-read.csv("C:/users/chris/Documents/GitHub/Final-Topic__RICH/hotel/file/10803-2.csv")
+```
 
-
-#«ö¤é´Á¡B¦aÂI¤ÀÃş¤õ¨®¯¸¶i¥X¤H¦¸
+<h2 id=2></h2>  
+## æ¸…æ´—è³‡æ–™
+### æŒ‰æ—¥æœŸã€åœ°é»åˆ†é¡ç«è»Šç«™é€²å‡ºäººæ¬¡
+```{r}
 Tr18 <- Tr18 %>%
-  rename(In="¶i¯¸", Out="¥X¯¸") %>%
+  rename(In="é€²ç«™", Out="å‡ºç«™") %>%
   mutate(year=BOARD_DATE%/%10000, month=(BOARD_DATE%/%100)%%100, day=BOARD_DATE%%100)
 head(Tr18)
 Tr18_KS<-filter(Tr18,177<TKT_BEG & TKT_BEG<189)
@@ -53,11 +70,13 @@ head(Tr18_KS)
 head(filter(Tr18_KS,month==1))
 
 Tr19 <- Tr19 %>%
-  rename(In="¶i¯¸", Out="¥X¯¸") %>%
+  rename(In="é€²ç«™", Out="å‡ºç«™") %>%
   mutate(year=BOARD_DATE%/%10000, month=(BOARD_DATE%/%100)%%100, day=BOARD_DATE%%100)
 Tr19_KS<-filter(Tr19,177<TKT_BEG & TKT_BEG<189)
+```
 
-#¥[Á`°ª¶¯¦a°Ï¦U¤ë¥÷¤õ¨®¯¸¥X¡B¤J¯¸Á`¤H¦¸
+### åŠ ç¸½é«˜é›„åœ°å€å„æœˆä»½ç«è»Šç«™å‡ºã€å…¥ç«™ç¸½äººæ¬¡
+```{r}
 Tr_Pass<-c()
 for (i in 1:12){
   Mon<-filter(Tr18_KS,month==i)
@@ -68,15 +87,15 @@ for (i in 1:3){
   Tr_Pass[12+i]<-(sum(select(Mon,In))+sum(select(Mon,Out)))
 }
 print(Tr_Pass)
+```
 
-
-
-#¥[Á`°ª¶¯¦a°Ï¦U¤ë¥÷°ªÅK¯¸¥X¡B¤J¯¸Á`¤H¦¸
+### åŠ ç¸½é«˜é›„åœ°å€å„æœˆä»½é«˜éµç«™å‡ºã€å…¥ç«™ç¸½äººæ¬¡
+```{r}
 hsr<- hsr %>%
-  rename(In.Out="¨®¯¸.¶i.¥X¯¸", DATE="¦~«×.¤ë¥÷") 
+  rename(In.Out="è»Šç«™.é€².å‡ºç«™", DATE="å¹´åº¦.æœˆä»½") 
 
-hsr$DATE<-gsub("¦~","-",hsr$DATE)
-hsr$DATE<-gsub("¤ë","",hsr$DATE)
+hsr$DATE<-gsub("å¹´","-",hsr$DATE)
+hsr$DATE<-gsub("æœˆ","",hsr$DATE)
 hsr$DATE<-(str_split(hsr$DATE,"-"))
 Count<-length(hsr$DATE)
 
@@ -92,41 +111,48 @@ hsr_Pass<-c()
 for (i in 1:12){
   y2018<-filter(hsr,year==2018)
   month<-filter(y2018,month==i)
-  hsr_Pass[i]<-(sum(select(month,"¥ªÀç")))
+  hsr_Pass[i]<-(sum(select(month,"å·¦ç‡Ÿ")))
   if (i<=6){
     y2019<-filter(hsr,year==2019)
     Month<-filter(y2019,month==i)
-    hsr_Pass[12+i]<-(sum(select(Month,"¥ªÀç")))
+    hsr_Pass[12+i]<-(sum(select(Month,"å·¦ç‡Ÿ")))
   }
 }
 print(hsr_Pass)
+```
 
-
-#¾ã²zH¬°°ª¶¯¦a°Ï®ÈÀ]¦¬¯q¸ê®Æ¡BH1¬°®È«È¤ÀÃş¸ê®Æ
+### æ•´ç†Hç‚ºé«˜é›„åœ°å€æ—…é¤¨æ”¶ç›Šè³‡æ–™ã€H1ç‚ºæ—…å®¢åˆ†é¡è³‡æ–™
+```{r}
 hotel<-list(H18_1,H18_2,H18_3,H18_4,H18_5,H18_6,H18_7,H18_8,H18_9,
      H18_10,H18_11,H18_12,H19_1,H19_2,H19_3)
 guest<-list(H18_1_2,H18_2_2,H18_3_2,H18_4_2,H18_5_2,H18_6_2,
       H18_7_2,H18_8_2,H18_9_2,H18_10_2,H18_11_2,H18_12_2,
       H19_1_2,H19_2_2,H19_3_2)
+```
 
-#¥[Á`¦U¤ë¥÷¦í©Ğ¦¸¼Æ
+### åŠ ç¸½å„æœˆä»½ä½æˆ¿æ¬¡æ•¸
+```{r}
 NRO<-c()
 for (i in 1:15){
   H<-as.data.frame(hotel[i])
   NRO[i]<-sum(select(H,No..of.Rooms.Occupied))
 }
 print(NRO)
+```
 
-
-#¥[Á`¦U¤ë¥÷³°«È¦í©Ğ¦¸¼Æ
+### åŠ ç¸½å„æœˆä»½é™¸å®¢ä½æˆ¿æ¬¡æ•¸
+```{r}
 china<-c()
 for (i in 1:15){
   G<-as.data.frame(guest[i])
   china[i]<-sum(select(G,China))
 }
 print(china)
+```
 
-#¥[Á`¦U¤ë¥÷¦U°ê¦í©Ğ¦¸¼Æ
+
+### åŠ ç¸½å„æœˆä»½å„åœ‹ä½æˆ¿æ¬¡æ•¸
+```{r}
 country<-list()
 
 for (i in 1:15){
@@ -138,9 +164,12 @@ for (i in 1:15){
 head(country)
 print(country[[1]])
 
+```
 
-
-#°ª¶¯®È«È¤H¼ÆÅÜ¤Æ§é½u¹Ï(«ö¥xÅK¡B°ªÅK¶i¥X¯¸¤H¦¸©M®ÈÀ]¦í©Ğ¼Æ)
+<h2 id=3></h2>  
+## è³‡æ–™è¦–è¦ºåŒ–
+### é«˜é›„æ—…å®¢äººæ•¸è®ŠåŒ–æŠ˜ç·šåœ–(æŒ‰å°éµã€é«˜éµé€²å‡ºç«™äººæ¬¡å’Œæ—…é¤¨ä½æˆ¿æ•¸)
+```{r}
 table1<-data.frame(Category=rep(c("train","high_speed_rail*1.5",
                                   "hotel*37.5"),each=15),
                    Month=rep(c("18.1","18.2","18.3","18.4",
@@ -164,70 +193,48 @@ Line<-ggplot(data=table1,aes(x=Month,y=Number,group=Category))+
   geom_line(aes(color=Category))+
   geom_point(aes(color=Category))
 print(Line)
-
-
-#®ÈÀ]¦í©Ğ¼Æ¶ê»æ¹Ï(«ö®È«È°êÄy)(¥H2018/1¬°¨Ò)
-Country<-data.frame(country[[1]])
-RN<-row.names(Country)
-L<-length(RN)
-COUNTRY=c(country[[1]])
-
-table2<-data.frame(Category=RN,
-                   COUNTRY=c(country[[1]]),
-                   row.names=c(1:L))
-print(table2)
-
-COU=cumsum(COUNTRY)
-midpoint=COU-COUNTRY/2
-per<-round(COUNTRY/sum(COUNTRY)*100,2)
-paste_num<-length(per)
-print(paste_num)
-
-Lab<-list()
-lab<-c()
-for (i in 1:paste_num){
-  if (per[i]<=5){
-    Lab[[i]]<-paste0(" ")
+```
+  
+### æ—…é¤¨ä½æˆ¿æ•¸åœ“é¤…åœ–(æŒ‰æ—…å®¢åœ‹ç±)
+```{r}
+for (j in 10:15){
+  VEC<-c(1:15)
+  Country<-data.frame(country[[j]])
+  RN<-row.names(Country)
+  L<-length(RN)
+  COUNTRY=c(country[[j]])
+  
+  table2<-data.frame(Category=RN,
+                     COUNTRY=c(country[[j]]),
+                     row.names=c(1:L))
+  
+  COU=cumsum(COUNTRY)
+  midpoint=COU-COUNTRY/2
+  per<-round(COUNTRY/sum(COUNTRY)*100,2)
+  paste_num<-length(per)
+  
+  Lab<-list()
+  lab<-c()
+  for (i in 1:paste_num){
+    if (per[i]<=5){
+      Lab[[i]]<-paste0(" ")
+    }
+    else {
+      Lab[[i]]<-paste0(per[i],"%")
+    }
+    lab[i]<-Lab[[i]]
   }
-  else {
-    Lab[[i]]<-paste0(per[i],"%")
-  }
-  lab[i]<-Lab[[i]]
+  Pie<-ggplot(table2,aes(x="",y=COUNTRY,fill=Category))+
+    geom_bar(stat="identity")+
+    coord_polar("y",start=0)+
+    geom_text(aes(x=1,y=midpoint,label=lab))+
+    ggtitle(paste0("No.",VEC[j]))
+  print(Pie)
 }
-class(Lab)
-print(Lab)
-class(lab)
-print(lab)
-Pie<-ggplot(table2,aes(x="",y=COUNTRY,fill=Category))+
-  geom_bar(stat="identity")+
-  coord_polar("y",start=0)+
-  geom_text(aes(x=1,y=midpoint,label=lab))
-print(Pie)
+```
 
-
-#¥æ³q¤u¨ã·f­¼¤H¦¸ªø±ø¹Ï
-table3<-data.frame(Month=rep(c("18.1","18.2","18.3","18.4",
-                               "18.5","18.6","18.7","18.8","18.9","18.10",
-                               "18.11","18.12","19.1","19.2","19.3"),2),
-                   Number=c(Tr_Pass,hsr_Pass[1:15]),
-                   Category=factor(rep(c("train","high_speed_rail"),each=15)))
-print(table3)
-
-table3$Month<-factor(table3$Month,
-                     levels=c("18.1","18.2","18.3","18.4",
-                              "18.5","18.6","18.7","18.8","18.9","18.10",
-                              "18.11","18.12","19.1","19.2","19.3"),
-                     ordered=T)
-Bar1<-ggplot(data=table3,aes(x=Month,y=Number,fill=Category)) +
-  geom_bar(stat="identity")
-print(Bar1)
-
-Bar2<-ggplot(data=table3,aes(x=Month,y=Number,fill=Category)) +
-  geom_bar(stat="identity",position="dodge")
-print(Bar2)
-
-
-#¤õ¨®¨C¤é¶i¥X¦ûÁ`¤H¦¸­±¿n¹Ï
+### ç«è»Šæ¯æ—¥é€²å‡ºä½”ç¸½äººæ¬¡é¢ç©åœ–
+```{r}
 Tr_KS<-rbind(Tr18_KS,Tr19_KS)
 Tr_KS<-Tr_KS %>%
   mutate(Num.=In+Out,Date=ymd(BOARD_DATE))
@@ -244,3 +251,4 @@ Area<-ggplot(table4,aes(x=Date,y=Num,fill=station))+
   geom_area(position="stack")+
   scale_x_date(date_breaks = "2 month")
 print(Area)
+```
