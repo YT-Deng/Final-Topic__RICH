@@ -4,5 +4,5 @@
 * [觀光旅館營運統計月報](https://admin.taiwan.net.tw/FileUploadCategoryListC003330.aspx?Pindex=2&CategoryID=0dcf358f-f875-452d-8d14-2b715d02ab1a&appname=FileUploadCategoryListC003330)
 
 ## [RMarkdown_chart](https://yt-deng.github.io/Final-Topic__RICH/Project_RMarkdown)
-## [RMarkdown_chart](https://yt-deng.github.io/Final-Topic__RICH/Project_RMarkdown_2)
+## [RMarkdown_chart_2](https://yt-deng.github.io/Final-Topic__RICH/Project_RMarkdown_2)
 ## [簡報]
