@@ -437,32 +437,9 @@ H19_3_2&lt;-read.csv(&quot;C:/users/chris/Documents/GitHub/Final-Topic__RICH/hot
 <pre class="r"><code>Tr18 &lt;- Tr18 %&gt;%
   rename(In=&quot;進站&quot;, Out=&quot;出站&quot;) %&gt;%
   mutate(year=BOARD_DATE%/%10000, month=(BOARD_DATE%/%100)%%100, day=BOARD_DATE%%100)
-head(Tr18)</code></pre>
-<pre><code>##   BOARD_DATE TKT_BEG STOP_NAME    In  Out year month day
-## 1   20180101       4      台東 13685 7623 2018     1   1
-## 2   20180101       6      山里     7   11 2018     1   1
-## 3   20180101       8      鹿野   356  184 2018     1   1
-## 4   20180101       9      瑞源    43   25 2018     1   1
-## 5   20180101      10      瑞和     7    4 2018     1   1
-## 6   20180101      12      關山   950  528 2018     1   1</code></pre>
-<pre class="r"><code>Tr18_KS&lt;-filter(Tr18,177&lt;TKT_BEG &amp; TKT_BEG&lt;189)
-head(Tr18_KS)</code></pre>
-<pre><code>##   BOARD_DATE TKT_BEG STOP_NAME   In  Out year month day
-## 1   20180101     178      大湖 1566 1776 2018     1   1
-## 2   20180101     179      路竹 2190 2418 2018     1   1
-## 3   20180101     180      岡山 3556 4696 2018     1   1
-## 4   20180101     181      橋頭 1861 2028 2018     1   1
-## 5   20180101     183      楠梓 3255 3690 2018     1   1
-## 6   20180101     184      左營 1281 1160 2018     1   1</code></pre>
-<pre class="r"><code>head(filter(Tr18_KS,month==1))</code></pre>
-<pre><code>##   BOARD_DATE TKT_BEG STOP_NAME   In  Out year month day
-## 1   20180101     178      大湖 1566 1776 2018     1   1
-## 2   20180101     179      路竹 2190 2418 2018     1   1
-## 3   20180101     180      岡山 3556 4696 2018     1   1
-## 4   20180101     181      橋頭 1861 2028 2018     1   1
-## 5   20180101     183      楠梓 3255 3690 2018     1   1
-## 6   20180101     184      左營 1281 1160 2018     1   1</code></pre>
-<pre class="r"><code>Tr19 &lt;- Tr19 %&gt;%
+Tr18_KS&lt;-filter(Tr18,177&lt;TKT_BEG &amp; TKT_BEG&lt;189)
+
+Tr19 &lt;- Tr19 %&gt;%
   rename(In=&quot;進站&quot;, Out=&quot;出站&quot;) %&gt;%
   mutate(year=BOARD_DATE%/%10000, month=(BOARD_DATE%/%100)%%100, day=BOARD_DATE%%100)
 Tr19_KS&lt;-filter(Tr19,177&lt;TKT_BEG &amp; TKT_BEG&lt;189)</code></pre>
@@ -477,10 +454,7 @@ for (i in 1:12){
 for (i in 1:3){
   Mon&lt;-filter(Tr19_KS,month==i)
   Tr_Pass[12+i]&lt;-(sum(select(Mon,In))+sum(select(Mon,Out)))
-}
-print(Tr_Pass)</code></pre>
-<pre><code>##  [1] 2180141 2150763 2348189 2359648 2293817 2184810 2224740 2085366
-##  [9] 2163345 2372852 2252383 2409525 2135399 2187280 2245745</code></pre>
+}</code></pre>
 </div>
 <div id="section-8" class="section level3">
 <h3>加總高雄地區各月份高鐵站出、入站總人次</h3>
@@ -497,24 +471,8 @@ for (i in 1:Count){
   hsr$year[i]&lt;-Vec[1]
   hsr$month[i]&lt;-Vec[2]
 }
-head(hsr)</code></pre>
-<pre><code>##   In.Out    DATE   南港    台北   板橋   桃園   新竹  苗栗   台中  彰化
-## 1   進站 2019, 6 234862 1301803 363975 604796 502411 77408 957819 59462
-## 2   出站 2019, 6 207161 1321306 362710 605251 521620 78125 948986 60471
-## 3   進站 2019, 5 223747 1284078 350847 580771 505010 76737 946101 55720
-## 4   出站 2019, 5 198895 1306221 350620 580643 517320 78192 938757 56774
-## 5   進站 2019, 4 241528 1304180 367986 583624 494391 80159 980989 66986
-## 6   出站 2019, 4 207329 1334420 371716 575674 510462 82225 970505 66805
-##     雲林   嘉義   台南   左營    總計 year month
-## 1 114945 236836 362762 793857 5610936 2019     6
-## 2 115070 235853 361496 792887 5610936 2019     6
-## 3 110257 226474 349037 766360 5475139 2019     5
-## 4 111266 224592 349462 762397 5475139 2019     5
-## 5 124306 259678 367041 807699 5678567 2019     4
-## 6 125838 256840 371553 805200 5678567 2019     4</code></pre>
-<pre class="r"><code>head(hsr$year)</code></pre>
-<pre><code>## [1] &quot;2019&quot; &quot;2019&quot; &quot;2019&quot; &quot;2019&quot; &quot;2019&quot; &quot;2019&quot;</code></pre>
-<pre class="r"><code>hsr_Pass&lt;-c()
+
+hsr_Pass&lt;-c()
 for (i in 1:12){
   y2018&lt;-filter(hsr,year==2018)
   month&lt;-filter(y2018,month==i)
@@ -524,11 +482,7 @@ for (i in 1:12){
     Month&lt;-filter(y2019,month==i)
     hsr_Pass[12+i]&lt;-(sum(select(Month,&quot;左營&quot;)))
   }
-}
-print(hsr_Pass)</code></pre>
-<pre><code>##  [1] 1401930 1574132 1454841 1583318 1452978 1474212 1511936 1534221
-##  [9] 1496294 1505847 1568077 1675655 1536161 1676848 1591834 1612899
-## [17] 1528757 1586744</code></pre>
+}</code></pre>
 </div>
 <div id="hh1" class="section level3">
 <h3>整理H為高雄地區旅館收益資料、H1為旅客分類資料</h3>
@@ -544,10 +498,7 @@ guest&lt;-list(H18_1_2,H18_2_2,H18_3_2,H18_4_2,H18_5_2,H18_6_2,
 for (i in 1:15){
   H&lt;-as.data.frame(hotel[i])
   NRO[i]&lt;-sum(select(H,No..of.Rooms.Occupied))
-}
-print(NRO)</code></pre>
-<pre><code>##  [1] 52353 53998 63904 62360 54587 53914 55626 55517 53558 67066 77611
-## [12] 91033 73568 74750 81655</code></pre>
+}</code></pre>
 </div>
 <div id="section-10" class="section level3">
 <h3>加總各月份陸客住房次數</h3>
@@ -555,10 +506,7 @@ print(NRO)</code></pre>
 for (i in 1:15){
   G&lt;-as.data.frame(guest[i])
   china[i]&lt;-sum(select(G,China))
-}
-print(china)</code></pre>
-<pre><code>##  [1] 15926 26126 13192 17352 14315 15627 19197 21394 15310 20872 14848
-## [12] 18706 19826 26706 25033</code></pre>
+}</code></pre>
 </div>
 <div id="section-11" class="section level3">
 <h3>加總各月份各國住房次數</h3>
@@ -569,90 +517,7 @@ for (i in 1:15){
   G&lt;-select(G,-Hotel.Name,-Total.1,-Total)
   colSums(G)
   country[[i]]&lt;-colSums(G)
-}
-head(country)</code></pre>
-<pre><code>## [[1]]
-##                     FIT                   GROUP                Domestic 
-##                   50275                   37971                   32801 
-##                   China                   Japan                   Korea 
-##                   15926                   15045                   10400 
-##              HK...Macao               Singapore                Malaysia 
-##                    1740                     673                     632 
-## Asia.Other.Asia.Region.          North.American                  Europe 
-##                    1988                    2468                    3037 
-##                 NZ...AU                   Other        Chinese.Overseas 
-##                     481                    2384                     671 
-## 
-## [[2]]
-##                     FIT                   GROUP                Domestic 
-##                   63695                   39506                   48100 
-##                   China                   Japan                   Korea 
-##                   26126                   12762                    5511 
-##              HK...Macao               Singapore                Malaysia 
-##                    1674                     381                     333 
-## Asia.Other.Asia.Region.          North.American                  Europe 
-##                    1883                    1708                    2164 
-##                 NZ...AU                   Other        Chinese.Overseas 
-##                     301                    1695                     563 
-## 
-## [[3]]
-##                     FIT                   GROUP                Domestic 
-##                   58163                   48986                   49814 
-##                   China                   Japan                   Korea 
-##                   13192                   20805                    3011 
-##              HK...Macao               Singapore                Malaysia 
-##                    2055                    1193                    2506 
-## Asia.Other.Asia.Region.          North.American                  Europe 
-##                    2869                    3801                    3518 
-##                 NZ...AU                   Other        Chinese.Overseas 
-##                     669                    2942                     774 
-## 
-## [[4]]
-##                     FIT                   GROUP                Domestic 
-##                   65390                   44569                   59414 
-##                   China                   Japan                   Korea 
-##                   17352                   11805                    2219 
-##              HK...Macao               Singapore                Malaysia 
-##                    2425                    1021                     948 
-## Asia.Other.Asia.Region.          North.American                  Europe 
-##                    4060                    3142                    4277 
-##                 NZ...AU                   Other        Chinese.Overseas 
-##                     779                    2045                     472 
-## 
-## [[5]]
-##                     FIT                   GROUP                Domestic 
-##                   45758                   48973                   52919 
-##                   China                   Japan                   Korea 
-##                   14315                   13044                    1658 
-##              HK...Macao               Singapore                Malaysia 
-##                    1916                     765                     576 
-## Asia.Other.Asia.Region.          North.American                  Europe 
-##                    2107                    2629                    2246 
-##                 NZ...AU                   Other        Chinese.Overseas 
-##                     472                    1653                     431 
-## 
-## [[6]]
-##                     FIT                   GROUP                Domestic 
-##                   50864                   44224                   52663 
-##                   China                   Japan                   Korea 
-##                   15627                   11498                    1387 
-##              HK...Macao               Singapore                Malaysia 
-##                    2774                     707                     437 
-## Asia.Other.Asia.Region.          North.American                  Europe 
-##                    3276                    2300                    1965 
-##                 NZ...AU                   Other        Chinese.Overseas 
-##                     197                    1790                     467</code></pre>
-<pre class="r"><code>print(country[[1]])</code></pre>
-<pre><code>##                     FIT                   GROUP                Domestic 
-##                   50275                   37971                   32801 
-##                   China                   Japan                   Korea 
-##                   15926                   15045                   10400 
-##              HK...Macao               Singapore                Malaysia 
-##                    1740                     673                     632 
-## Asia.Other.Asia.Region.          North.American                  Europe 
-##                    1988                    2468                    3037 
-##                 NZ...AU                   Other        Chinese.Overseas 
-##                     481                    2384                     671</code></pre>
+}</code></pre>
 <h2 id="3">
 </h2>
 </div>
@@ -669,54 +534,8 @@ head(country)</code></pre>
                                &quot;18.12&quot;,&quot;19.1&quot;,&quot;19.2&quot;,&quot;19.3&quot;
                                ),3),
                    Number=c(Tr_Pass[1:15],hsr_Pass[1:15]*1.5,NRO*37.5))
-print(table1)</code></pre>
-<pre><code>##               Category Month  Number
-## 1                train  18.1 2180141
-## 2                train  18.2 2150763
-## 3                train  18.3 2348189
-## 4                train  18.4 2359648
-## 5                train  18.5 2293817
-## 6                train  18.6 2184810
-## 7                train  18.7 2224740
-## 8                train  18.8 2085366
-## 9                train  18.9 2163345
-## 10               train 18.10 2372852
-## 11               train 18.11 2252383
-## 12               train 18.12 2409525
-## 13               train  19.1 2135399
-## 14               train  19.2 2187280
-## 15               train  19.3 2245745
-## 16 high_speed_rail*1.5  18.1 2102895
-## 17 high_speed_rail*1.5  18.2 2361198
-## 18 high_speed_rail*1.5  18.3 2182262
-## 19 high_speed_rail*1.5  18.4 2374977
-## 20 high_speed_rail*1.5  18.5 2179467
-## 21 high_speed_rail*1.5  18.6 2211318
-## 22 high_speed_rail*1.5  18.7 2267904
-## 23 high_speed_rail*1.5  18.8 2301332
-## 24 high_speed_rail*1.5  18.9 2244441
-## 25 high_speed_rail*1.5 18.10 2258771
-## 26 high_speed_rail*1.5 18.11 2352116
-## 27 high_speed_rail*1.5 18.12 2513483
-## 28 high_speed_rail*1.5  19.1 2304242
-## 29 high_speed_rail*1.5  19.2 2515272
-## 30 high_speed_rail*1.5  19.3 2387751
-## 31          hotel*37.5  18.1 1963238
-## 32          hotel*37.5  18.2 2024925
-## 33          hotel*37.5  18.3 2396400
-## 34          hotel*37.5  18.4 2338500
-## 35          hotel*37.5  18.5 2047013
-## 36          hotel*37.5  18.6 2021775
-## 37          hotel*37.5  18.7 2085975
-## 38          hotel*37.5  18.8 2081888
-## 39          hotel*37.5  18.9 2008425
-## 40          hotel*37.5 18.10 2514975
-## 41          hotel*37.5 18.11 2910413
-## 42          hotel*37.5 18.12 3413738
-## 43          hotel*37.5  19.1 2758800
-## 44          hotel*37.5  19.2 2803125
-## 45          hotel*37.5  19.3 3062063</code></pre>
-<pre class="r"><code>table1$Category&lt;-factor(table1$Category,
+
+table1$Category&lt;-factor(table1$Category,
                         levels=c(&quot;train&quot;,&quot;high_speed_rail*1.5&quot;,
                                    &quot;hotel*37.5&quot;),ordered=TRUE)
 table1$Month&lt;-factor(table1$Month,
@@ -774,53 +593,10 @@ print(Line)</code></pre>
 <pre class="r"><code>Tr_KS&lt;-rbind(Tr18_KS,Tr19_KS)
 Tr_KS&lt;-Tr_KS %&gt;%
   mutate(Num.=In+Out,Date=ymd(BOARD_DATE))
-head(Tr_KS)</code></pre>
-<pre><code>##   BOARD_DATE TKT_BEG STOP_NAME   In  Out year month day Num.       Date
-## 1   20180101     178      大湖 1566 1776 2018     1   1 3342 2018-01-01
-## 2   20180101     179      路竹 2190 2418 2018     1   1 4608 2018-01-01
-## 3   20180101     180      岡山 3556 4696 2018     1   1 8252 2018-01-01
-## 4   20180101     181      橋頭 1861 2028 2018     1   1 3889 2018-01-01
-## 5   20180101     183      楠梓 3255 3690 2018     1   1 6945 2018-01-01
-## 6   20180101     184      左營 1281 1160 2018     1   1 2441 2018-01-01</code></pre>
-<pre class="r"><code>tail(Tr_KS)</code></pre>
-<pre><code>##      BOARD_DATE TKT_BEG STOP_NAME    In   Out year month day  Num.
-## 4765   20190422     183      楠梓  2243  2323 2019     4  22  4566
-## 4766   20190422     184      左營   824   757 2019     4  22  1581
-## 4767   20190422     185      高雄 13363 11700 2019     4  22 25063
-## 4768   20190422     186      鳳山  4768  4144 2019     4  22  8912
-## 4769   20190422     187      後庄   605   568 2019     4  22  1173
-## 4770   20190422     188    九曲堂  1002  1029 2019     4  22  2031
-##            Date
-## 4765 2019-04-22
-## 4766 2019-04-22
-## 4767 2019-04-22
-## 4768 2019-04-22
-## 4769 2019-04-22
-## 4770 2019-04-22</code></pre>
-<pre class="r"><code>class(Tr_KS)</code></pre>
-<pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<pre class="r"><code>table4&lt;-data.frame(Date=Tr_KS$Date,
+table4&lt;-data.frame(Date=Tr_KS$Date,
                 Num=Tr_KS$Num.,
                 station=Tr_KS$STOP_NAME)
-head(table4)</code></pre>
-<pre><code>##         Date  Num station
-## 1 2018-01-01 3342    大湖
-## 2 2018-01-01 4608    路竹
-## 3 2018-01-01 8252    岡山
-## 4 2018-01-01 3889    橋頭
-## 5 2018-01-01 6945    楠梓
-## 6 2018-01-01 2441    左營</code></pre>
-<pre class="r"><code>tail(table4)</code></pre>
-<pre><code>##            Date   Num station
-## 4765 2019-04-22  4566    楠梓
-## 4766 2019-04-22  1581    左營
-## 4767 2019-04-22 25063    高雄
-## 4768 2019-04-22  8912    鳳山
-## 4769 2019-04-22  1173    後庄
-## 4770 2019-04-22  2031  九曲堂</code></pre>
-<pre class="r"><code>class(table4$Date)</code></pre>
-<pre><code>## [1] &quot;Date&quot;</code></pre>
-<pre class="r"><code>Area&lt;-ggplot(table4,aes(x=Date,y=Num,fill=station))+
+Area&lt;-ggplot(table4,aes(x=Date,y=Num,fill=station))+
   geom_area(position=&quot;stack&quot;)+
   scale_x_date(date_breaks = &quot;2 month&quot;)
 print(Area)</code></pre>
