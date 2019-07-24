@@ -160,10 +160,10 @@ table1$Month<-factor(table1$Month,
                               "18.9","18.10","18.11",
                               "18.12","19.1","19.2","19.3"),
                      ordered=TRUE)
-Line<-ggplot(data=table1,aes(x=Month,y=Number,group=Category))+
+Line1<-ggplot(data=table1,aes(x=Month,y=Number,group=Category))+
   geom_line(aes(color=Category))+
   geom_point(aes(color=Category))
-print(Line)
+print(Line1)
 
 
 #旅館住房數圓餅圖(按旅客國籍)(以2018/1為例)
@@ -244,3 +244,17 @@ Area<-ggplot(table4,aes(x=Date,y=Num,fill=station))+
   geom_area(position="stack")+
   scale_x_date(date_breaks = "2 month")
 print(Area)
+
+
+
+#陸客住房數折線圖
+table5<-data.frame(Month=c("18/01","18/02","18/03","18/04",
+                           "18/05","18/06","18/07","18/08",
+                           "18/09","18/10","18/11","18/12",
+                           "19/01","19/02","19/03"),
+                   Number=china)
+print(table5)
+Line2<-ggplot(data=table5,aes(x=Month,y=Number,group=1))+
+  geom_line(color="red")+
+  geom_point(color="brown")
+print(Line2)
