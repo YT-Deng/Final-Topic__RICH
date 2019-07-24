@@ -227,7 +227,7 @@ Bar2<-ggplot(data=table3,aes(x=Month,y=Number,fill=Category)) +
 print(Bar2)
 
 
-#火車每日進出佔總人次面積圖
+#火車每日進出站總人次面積圖
 Tr_KS<-rbind(Tr18_KS,Tr19_KS)
 Tr_KS<-Tr_KS %>%
   mutate(Num.=In+Out,Date=ymd(BOARD_DATE))
