@@ -15,9 +15,9 @@ View(dcard_news)
 class(dcard_news)
 class(dcard_news$Comment)
 head(dcard_news$Comment)
-tit<-dcard_news$Title<-as.character(dcard_news$Title)
-tex<-dcard_news$Text<-as.character(dcard_news$Text)
-com<-dcard_news$Comment<-as.character(dcard_news$Comment)
+tit<-as.character(dcard_news$Title)
+tex<-as.character(dcard_news$Text)
+com<-as.character(dcard_news$Comment)
 head(dcard_news$Title)
 
 cutter=worker()
@@ -27,6 +27,7 @@ Com<-cutter[(com)]
 head(Tit)
 
 Tit<-gsub("[A-Za-z0-9]","",Tit)
+Tit<-gsub("ªº","",Tit)
 not<-which(Tit=="")
 Tit<-Tit[-not]
 head(Tit)
@@ -38,6 +39,7 @@ wordcloud(names(Tit_cl),Tit_cl,min.Tit_cl=5,max.words=50,
 
 
 Tex<-gsub("[A-Za-z0-9]","",Tex)
+Tex<-gsub("ªº","",Tex)
 not<-which(Tex=="")
 Tex<-Tex[-not]
 head(Tex)
@@ -49,6 +51,7 @@ wordcloud(names(Tex_cl),Tex_cl,min.Tex_cl=5,max.words=50,
 
 
 Com<-gsub("[A-Za-z0-9]","",Com)
+Com<-gsub("ªº","",Com)
 not<-which(Com=="")
 Com<-Com[-not]
 head(Com)
