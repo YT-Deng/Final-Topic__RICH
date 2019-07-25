@@ -44,7 +44,8 @@ head(Tex)
 
 Tex_cl<-table(Tex)
 head(sort(Tex_cl, decreasing=T))
-wordcloud(names(Tex_cl),Tex_cl,min.Tex_cl=5,max.words=50)
+wordcloud(names(Tex_cl),Tex_cl,min.Tex_cl=5,max.words=50,
+          colors=rainbow(length(row.names(Tit_cl))))
 
 
 Com<-gsub("[A-Za-z0-9]","",Com)
@@ -54,4 +55,5 @@ head(Com)
 
 Com_cl<-table(Com)
 head(sort(Com_cl, decreasing=T))
-wordcloud(names(Com_cl),Com_cl,min.Com_cl=5,max.words=50)
+wordcloud(names(Com_cl),Com_cl,min.Com_cl=5,max.words=100,
+          colors=rainbow(length(row.names(Tit_cl))))
