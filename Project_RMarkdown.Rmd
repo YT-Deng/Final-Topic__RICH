@@ -113,6 +113,7 @@ sum<-read.csv("C:/users/chris/Documents/GitHub/Final-Topic__RICH/MemberA/sum.csv
 sum2<-read.csv('C:/users/chris/Documents/GitHub/Final-Topic__RICH/MemberA/sum2017-2018.csv')
 sum3<-read.csv('C:/users/chris/Documents/GitHub/Final-Topic__RICH/MemberA/sum2016-2017.csv')
 sum4<-read.csv('C:/users/chris/Documents/GitHub/Final-Topic__RICH/MemberA/sum2015-2016.csv')
+
 ```
 
 <h2 id=2></h2>  

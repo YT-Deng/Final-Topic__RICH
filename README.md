@@ -5,4 +5,4 @@
 * [高雄歷年來觀光遊客統計](https://khh.travel/Article.aspx?a=7560&l)
 ## [RMarkdown_chart](https://yt-deng.github.io/Final-Topic__RICH/Project_RMarkdown)
 ## [Ptyhon網路爬蟲](https://github.com/YT-Deng/Final-Topic__RICH/blob/master/MemberB/webSpyderForDcardTrending.ipynb)
-## [簡報]
+## [簡報](https://docs.google.com/presentation/d/1i9OKt8TO5AE2_0mbv5cu7l-55q7HO6nIuO0IEj9wxOU/edit?ts=5d386d55#slide=id.g5df898da97_0_158)
